@@ -44,6 +44,8 @@ config_and_utils.py          # constants, hyperparameters, DICOM I/O, normalizat
 stage1_slice_selector.py     # SliceSelectorDataset, EfficientNet-B0 model, train/infer
 stage2_keypoint_detector.py  # KeypointDataset, U-Net, Gaussian heatmaps, train/infer
 stage3_severity_classifier.py# SeverityDataset, 2.5D EfficientNet-B0, ROI extraction, train
+train.py                     # orchestrates Stages 1→2→3 in sequence
+inference.py                 # runs the trained pipeline end-to-end on a single study
 ```
 
 ## Setup
