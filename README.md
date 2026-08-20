@@ -50,7 +50,7 @@ Trained and evaluated on the [RSNA 2024 Lumbar Spine Degenerative Classification
 ## Setup
  
 ```bash
-git clone https://github.com/<your-username>/lumbar-scs-severity-grading.git
+git clone https://github.com/yash-gupta05/LUMBAR-SPINAL-STENOSIS-GRADING-.git
 cd lumbar-scs-severity-grading
 pip install -r requirements.txt
 ```
