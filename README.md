@@ -40,11 +40,10 @@ Trained and evaluated on the [RSNA 2024 Lumbar Spine Degenerative Classification
 ## Repository Structure
 
 ```
-├── config_and_utils.py          # Shared config, constants, and utility functions
-├── stage1_slice_selector.py     # EfficientNet-B0 slice selection model
-├── stage2_keypoint_detector.py  # U-Net keypoint detector (Gaussian heatmap regression)
-├── stage3_severity_classifier.py # 2.5D EfficientNet-B0 severity classifier
-└── README.md
+config_and_utils.py          # constants, hyperparameters, DICOM I/O, normalization, RAM caching
+stage1_slice_selector.py     # SliceSelectorDataset, EfficientNet-B0 model, train/infer
+stage2_keypoint_detector.py  # KeypointDataset, U-Net, Gaussian heatmaps, train/infer
+stage3_severity_classifier.py# SeverityDataset, 2.5D EfficientNet-B0, ROI extraction, train
 ```
 
 ## Setup
