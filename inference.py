@@ -15,16 +15,8 @@
 #      python inference.py --study_id 12345678 --series_key sag_t2
 #      python inference.py --study_id 12345678 --out_json results.json
 #
-#  Notes
+#  Note
 #  -----
-#  - By default this only runs the Sagittal T2/STIR (sag_t2) branch,
-#    matching the scope of the accompanying project report (Spinal
-#    Canal Stenosis grading). Pass --series_key sag_t1 to additionally
-#    run the Sagittal T1 branch if you have trained those checkpoints
-#    (subarticular stenosis is an experimental extension — see
-#    Section 7.2 "Limitations" in the report).
-#  - Requires Stage 1/2/3 checkpoints for the requested series key(s)
-#    to already exist under CFG.output_dir.
 #  - Looks up the series_id for the requested study from
 #    train_series_descriptions.csv (or test equivalent). Pass
 #    --series_id directly to skip this lookup.
