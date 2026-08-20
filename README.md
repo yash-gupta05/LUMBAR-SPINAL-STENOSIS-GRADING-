@@ -56,13 +56,33 @@ pip install -r requirements.txt
 
 ## Usage
  
+### Training
+ 
+Each stage script is fully self-contained — it builds its own volume cache, does its own train/val split, and saves its own checkpoints. `train.py` just runs them in order:
+ 
 ```bash
-# Stage 1: train the slice selector
-python stage1_slice_selector.py --train
+# Run all three stages end-to-end
+python train.py
  
-# Stage 2: train the keypoint detector
-python stage2_keypoint_detector.py --train
+# Run specific stages only (e.g. re-run Stage 3 after tweaking it,
+# reusing existing Stage 1/2 checkpoints)
+python train.py --stages 3
  
-# Stage 3: train the severity classifier
-python stage3_severity_classifier.py --train
+# Or run a stage script directly
+python stage1_slice_selector.py
+```
+ 
+### Inference
+ 
+`inference.py` runs the full three-stage pipeline on a single study and prints (or saves) structured per-level severity predictions:
+ 
+```bash
+# Sagittal T2/STIR — Spinal Canal Stenosis (the scope of this project)
+python inference.py --study_id 12345678
+ 
+# Save results to a JSON file
+python inference.py --study_id 12345678 --out_json results.json
+ 
+# Run every series branch that has trained checkpoints available
+python inference.py --study_id 12345678 --series_key all
 ```
