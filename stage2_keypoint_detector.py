@@ -81,7 +81,7 @@ def build_gt_heatmaps_for_sample(
 
     for li, level in enumerate(LEVELS):
         level_rows = sub[
-            sub["level"].str.lower().str.replace(" ", "_") == level
+            sub["level"].str.lower().str.replace("/", "_").str.replace(" ", "_") == level
         ]
         if level_rows.empty:
             continue
