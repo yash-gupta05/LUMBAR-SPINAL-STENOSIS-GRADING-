@@ -91,15 +91,30 @@ def find_series_id(descs_df, study_id: int, series_key: str):
     return int(sub.iloc[0]["series_id"])
 
 
-def run_for_series_key(study_id: int, series_id: int, series_key: str) -> dict:
+def run_for_series_key(study_id: int, series_id: int, series_key: str,
+                        preloaded_models: tuple = None) -> dict:
     """
     Run the full 3-stage pipeline for one (study_id, series_id) pair
     and return {level: {"severity_label": str, "severity_idx": int,
                          "probs": [p0, p1, p2]}}.
+
+    Parameters
+    ----------
+    preloaded_models : optional (s1_model, s2_model, s3_model) tuple.
+        If provided, these are used directly instead of calling
+        load_stage_models() again. This is a no-op for CLI usage
+        (main() below never passes this — one-off runs still just
+        load fresh, exactly as before) but lets a long-running caller
+        (e.g. a service that loads checkpoints once at startup) avoid
+        re-reading the same checkpoint files from disk on every call.
     """
     from stage3_severity_classifier import run_full_inference
 
-    s1_model, s2_model, s3_model = load_stage_models(series_key)
+    if preloaded_models is not None:
+        s1_model, s2_model, s3_model = preloaded_models
+    else:
+        s1_model, s2_model, s3_model = load_stage_models(series_key)
+
     missing = [name for name, m in
                [("Stage 1", s1_model), ("Stage 2", s2_model), ("Stage 3", s3_model)]
                if m is None]
